@@ -1,2 +1,23 @@
-# wasthatanearthquake
 Was that an earthquake?
+=
+
+*ReactJs* version of a simple website made a few years ago.
+
+Figures out where you are, either by permissioned access,
+or by your IP address. Then compares your location to
+data retrieved from the USGS.gov earthquake json feed.
+https://earthquake.usgs.gov
+Comparing the strength and location of recent earthquakes we'll see
+if that was a genuine earthquake you felt, or just a truck
+rumbling down the street.
+
+TO DO
+-----
+* add dropdown to choose from wider timelines:
+    - Just Now
+    - Earlier Today
+    - This past week
+* Rebuild comparison algorithm
+* Rebuild Google Maps
+* Intro text
+* Deploy
