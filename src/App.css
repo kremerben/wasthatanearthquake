@@ -1,16 +1,8 @@
 .App {
-  text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
 
 .App-header {
-  background-color: darkred;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,11 +15,92 @@
   color: darkorange;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+ol.tilted-list {
+    width: 435px;
+    list-style-type: none;
+    list-style-type: decimal !ie; /*IE 7- hack*/
+    margin: 0;
+    margin-left: 3em;
+    padding: 0;
+    counter-reset: li-counter;
+    font-weight: 400;
 }
+ol.tilted-list h3 {
+    color: black;
+    margin-top: 0;
+}
+ol.tilted-list > li{
+    position: relative;
+    margin-bottom: 20px;
+    padding: 1em;
+    border-left: 2px solid yellow;
+    background-color: darkgrey;
+}
+ol.tilted-list > li:before {
+    position: absolute;
+    top: 0;
+    left: -0.95em;
+    width: 1em;
+    font-size: 4em;
+    line-height: 1;
+    font-weight: bold;
+    text-align: right;
+    color: darkorange;
+    transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    z-index: -99;
+    overflow: hidden;
+    content: counter(li-counter);
+    counter-increment: li-counter;
+}
+.earthquakeMaps {
+    height: 400px;
+    width: 200px;
+}
+#gmap {
+    height: 400px;
+    width: 500px;
+}
+.gm-style-iw {
+    color: darkred;
+}
+.eqmap {
+  display: none;
+  background-color: white;
+}
+#feel {
+  text-align: center;
+  padding: 1vmin;
+  background-color: orangered;
+  width: 100%;
+}
+#feel h1 {
+  font-size: 4em;
+  color: black;
+  font-weight: 700;
+}
+
+#overlay {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  color: darkorange;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  opacity: 1;
+  background: rgba(39, 42, 43, 0.95);
+  margin: 0;
+}
+#overlay h1 {
+    font-size: 5em;
+    color: darkorange;
+    font-weight: 700;
+    margin: 100px auto;
+}
+
