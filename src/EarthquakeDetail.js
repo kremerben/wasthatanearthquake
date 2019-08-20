@@ -3,42 +3,35 @@ import {GOOGLE_MAPS_API_KEY} from "./config/Constants";
 
 
 class EarthquakeDetail extends Component {
-    constructor(props) {
-        super(props);
-    }
-
 
 render() {
     let data = this.props.value.properties;
+
     let totalMinutesAgo = Math.floor((Date.now() - data.time) / 60000);
-    let hourAgo = Math.floor(totalMinutesAgo / 60);
+    let hoursAgo = Math.floor(totalMinutesAgo / 60);
     let minutesAgo = (totalMinutesAgo % 60).toFixed();
 
-    let coords = this.props.value.geometry;
-    let depth = coords.coordinates[2];
-    let eq_longitude = coords.coordinates[0];
-    let eq_latitude = coords.coordinates[1];
-    let distanceFrom = Math.round(coords.distanceFromYou);
+    let geo = this.props.value.geometry;
+    let [eq_longitude, eq_latitude, depth] = geo.coordinates;
+    let distanceFrom = Math.round(geo.distanceFromYou);
 
-    let eqDetail = hourAgo ? `${hourAgo} hours and ` : "";
-    eqDetail += `${minutesAgo} minutes ago, located ${distanceFrom} km from you, \n`;
-    eqDetail += `${data.place}, at a depth of ${depth} km, and a Magnitude of ${data.strength}.`;
+    let eqDetail = hoursAgo ? `${hoursAgo} hours and ` : "";
+    eqDetail += `${minutesAgo} minutes ago, located ${distanceFrom} km from you, `;
+    eqDetail += `${data.place}, at a depth of ${depth} km, and a Magnitude of ${data.mag}.`;
 
-    let googleMapImg = `https://maps.googleapis.com/maps/api/staticmap?zoom=7&center=${eq_latitude},${eq_longitude}&markers=color:red|label:1|${eq_latitude},${eq_longitude}&size=380x200&maptype=roadmap&key=${GOOGLE_MAPS_API_KEY}`;
-    let googleMapStyle = {
-        display: "none",
-        opacity: 1,
-    };
+    let googleMapURL = `https://maps.googleapis.com/maps/api/staticmap?zoom=7&center=${eq_latitude},${eq_longitude}&markers=color:red|label:1|${eq_latitude},${eq_longitude}&size=380x200&maptype=roadmap&key=${GOOGLE_MAPS_API_KEY}`;
 
     return (
     <li className="viewmap">
         <h3>{eqDetail}</h3>
-        <button>Toggle map</button>
-        <div style={googleMapStyle} className="maps1">
-            <a href={data.equrl} target="_blank">
-                <img src={googleMapImg} />
+        <input type="checkbox" readOnly />
+        <i> </i>
+        <h4>Toggle map</h4>
+        <p>
+            <a href={data.equrl} target={"_blank"} rel={"noopener noreferrer"}>
+                <img src={googleMapURL} alt={"google map"} />
             </a>
-        </div>
+        </p>
     </li>
     );}
 }
