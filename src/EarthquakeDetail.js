@@ -24,12 +24,14 @@ render() {
     return (
     <li className="viewmap">
         <h3>{eqDetail}</h3>
-        <input type="checkbox" readOnly />
+        <input type="checkbox" defaultChecked={true} />
         <i> </i>
-        <h4>Toggle map</h4>
         <p>
-            <a href={data.equrl} target={"_blank"} rel={"noopener noreferrer"}>
-                <img src={googleMapURL} alt={"google map"} />
+            <img src={googleMapURL} alt={"google map"} />
+        </p>
+        <p>
+            <a href={data.url} target={"_blank"} rel={"noopener noreferrer"}>
+                {data.url}
             </a>
         </p>
     </li>
