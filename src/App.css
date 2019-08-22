@@ -38,9 +38,10 @@ a {
   color: darkred;
 }
 
-#gmap {
-    height: 400px;
-    width: 500px;
+#main-map {
+  height: 400px;
+  width: 500px;
+  margin: 10px auto;
 }
 .gm-style-iw {
     color: darkred;
@@ -57,7 +58,7 @@ a {
   width: 100%;
 }
 #feel h1 {
-  font-size: 4em;
+  font-size: 3em;
   color: black;
   font-weight: 700;
 }
