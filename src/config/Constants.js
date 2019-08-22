@@ -1,7 +1,8 @@
 /** Constants **/
 
-export const DEFAULT_LATITUDE = 37.77;
-export const DEFAULT_LONGITUDE = -122.42;
+/** Anchorage, AK **/
+export const DEFAULT_LATITUDE = 61.2181;
+export const DEFAULT_LONGITUDE = -149.9003;
 
 export const USGS_BASE_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/";
 export const USGS_HOUR_URL = USGS_BASE_URL + "1.0_hour.geojson";

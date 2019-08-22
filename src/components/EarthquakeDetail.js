@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {GOOGLE_MAPS_API_KEY} from "./config/Constants";
+import {GOOGLE_MAPS_API_KEY} from "../config/Constants";
 
 
 class EarthquakeDetail extends Component {

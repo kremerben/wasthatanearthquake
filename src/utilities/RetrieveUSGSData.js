@@ -69,7 +69,7 @@ export function retrieveUSGSData(choice, user_location) {
         result.data.features.sort((a, b) => (a.geometry.distanceFromYou > b.geometry.distanceFromYou) ? 1 : -1);
 
         this.setState({
-            usgs_data: result.data.features,
+            usgsData: result.data.features,
             could_feel: result.data.features.some(can_feel),
         });
     });
