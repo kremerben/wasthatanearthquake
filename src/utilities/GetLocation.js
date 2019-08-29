@@ -2,32 +2,30 @@ import axios from "axios";
 
 
 export async function findCoordinates() {
-    if (navigator.geolocation) {
-        await navigator.geolocation.getCurrentPosition(
-            position => {
-                const location = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude
-                };
-                // this.setState({
-                //     user_location:location
-                // });
-                return {
-                    user_location: location
-                };
-            },
-            error => {
-                console.log(error);
-                // geofail.then((ipBasedLocation) => this.setState({
-                //     location: ipBasedLocation
-                // }));
-            }, {
-                enableHighAccuracy: true,
-                timeout: 20000,
-                maximumAge: 1000
-            }
-        );
-    }
+
+    return new Promise(function (resolve, reject) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const location = {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    resolve(location);
+                },
+                error => {
+                    console.log(error);
+                    geofail.then((ipBasedLocation) => {
+                        return ipBasedLocation ;
+                    });
+                }, {
+                    enableHighAccuracy: true,
+                    timeout: 20000,
+                    maximumAge: 1000
+                }
+            );
+        }
+    })
 }
 
 let geofail = new Promise(

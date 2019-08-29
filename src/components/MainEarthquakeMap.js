@@ -18,7 +18,7 @@ class MainEarthquakeMap extends Component {
                 {
                     text: markerText,
                     lat: eq.geometry.coordinates[1],
-                    lng: eq.geometry.coordinates[1]
+                    lng: eq.geometry.coordinates[0]
                 }
             ]);
         });
