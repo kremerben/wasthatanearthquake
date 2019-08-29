@@ -12,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: {
+      userLocation: {
         latitude: DEFAULT_LATITUDE,
         longitude: DEFAULT_LONGITUDE
       },
@@ -20,27 +20,44 @@ class App extends Component {
       eq_data: [],
       feedbackText: "Calculating",
       choice: "day",
+      is_loading: true,
+      could_feel: false,
     };
 
-    this.loadData();
+    // this.loadData();
 
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    console.log("cdm");
+    await navigator.geolocation.getCurrentPosition((position) => {
 
-    // trigger function to calculate the rest
-    // this.compileEQData();
+      const user_location = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+      };
 
-    this.setState({feedbackText: "It was probably nothing."})
+      console.log(user_location);
+    console.log("cdm2");
+      retrieveUSGSData.bind(this)(this.state.choice, user_location);
+      this.setState({userLocation: user_location, is_loading: false});
+    });
+
+    // const user_location = await findCoordinates.bind(this)();
+    console.log("cdm3");
+    // const x = await retrieveUSGSData.bind(this)(this.state.choice, user_location);
+    //
+    //
+    //   this.setState({userLocation: user_location, is_loading: false});
   }
 
 
-  loadData() {
-    findCoordinates.bind(this)();
-
-    retrieveUSGSData.bind(this)(this.state.choice, this.state.location);
-
-    }
+  // async loadData() {
+  //   const user_location = await findCoordinates.bind(this)();
+  //   console.log("user_location:  " + user_location);
+  //   retrieveUSGSData.bind(this)(this.state.choice, user_location);
+  //
+  //   }
 
   renderEarthquakeDetailList() {
     let items = this.state.usgsData.slice(0,5).map( (option, key) => {
@@ -56,14 +73,16 @@ class App extends Component {
   renderMainEarthquakeMap() {
     return (
         <div id={"main-map"}>
-            <MainEarthquakeMap eqData={this.state.usgsData.slice(0,5)} userLocation={this.state.location} />
+            <MainEarthquakeMap
+                eqData={this.state.usgsData.slice(0,5)}
+                userLocation={this.state.userLocation} />
         </div>
     );
   }
 
 render() {
-  const latitude = this.state.location.latitude.toFixed(4);
-  const longitude = this.state.location.longitude.toFixed(4);
+  // const latitude = this.state.userLocation.latitude.toFixed(4);
+  // const longitude = this.state.userLocation.longitude.toFixed(4);
 
   return (
     <div className="App">
@@ -71,17 +90,22 @@ render() {
         {/*<Header />*/}
         <h3 className={"shake shake-constant shake-constant--hover"}>Did you feel something?</h3>
         {/* Feedback box */}
-        <Feedback value={this.state.feedbackText}/>
-        <p><small> {latitude}, {longitude} </small></p>
+        <Feedback value={this.state.could_feel}/>
+        {/*<p><small> {latitude}, {longitude} </small></p>*/}
       </header>
+      {this.state.is_loading &&
+             <h1> Loading... </h1>
+      }
 
-      <h1> Recent Nearby Earthquakes </h1>
-      {/*  Main Map */}
-      {this.renderMainEarthquakeMap()}
+      {!this.state.is_loading &&
+          <div>
+            <h1 className={"shake shake-constant shake-constant--hover"}> Recent Nearby Earthquakes </h1>
+            {this.renderMainEarthquakeMap()}
 
-      <h1> Nearest Earthquake data: </h1>
-      {/* Multi maps */}
-      {this.renderEarthquakeDetailList()}
+            <h1 className={"shake shake-constant shake-constant--hover"}> Nearest Earthquake data: </h1>
+            {this.renderEarthquakeDetailList()}
+          </div>
+      }
     </div>
   );}
 }

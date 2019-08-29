@@ -1,22 +1,26 @@
 import axios from "axios";
 
 
-export function findCoordinates() {
+export async function findCoordinates() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
+        await navigator.geolocation.getCurrentPosition(
             position => {
                 const location = {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude
                 };
-                this.setState({
-                    location
-                });
+                // this.setState({
+                //     user_location:location
+                // });
+                return {
+                    user_location: location
+                };
             },
             error => {
-                geofail.then((ipBasedLocation) => this.setState({
-                    location: ipBasedLocation
-                }));
+                console.log(error);
+                // geofail.then((ipBasedLocation) => this.setState({
+                //     location: ipBasedLocation
+                // }));
             }, {
                 enableHighAccuracy: true,
                 timeout: 20000,
