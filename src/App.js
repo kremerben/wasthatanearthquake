@@ -15,7 +15,6 @@ import { addDistanceData } from "./utilities/CalculateDistance";
 import { findCoordinates } from "./utilities/GetLocation";
 import { retrieveUSGSData } from "./utilities/RetrieveUSGSData";
 
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -96,7 +95,10 @@ class App extends Component {
             Did you feel something?
           </h3>
           {/* Feedback box */}
-          <Feedback value={this.state.could_feel} />
+          <Feedback
+            value={this.state.could_feel}
+            loading={this.state.is_loading}
+          />
         </header>
         <Dropdown
           initialSelect={this.state.timeframeChoice}
