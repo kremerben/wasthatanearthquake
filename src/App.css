@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  margin-top: 1em;
 }
 
 .App-link {
@@ -38,13 +38,69 @@ a {
   color: darkred;
 }
 
+nav {
+  margin: 0 auto 2em;
+}
+nav label,
+nav ul li {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  border-bottom: 1px solid darkorange;
+  color: darkorange;
+}
+nav label:hover,
+nav ul li:hover {
+  background: orangered;
+  color: black;
+  cursor: pointer;
+}
+nav label {
+  position: relative;
+  z-index: 2;
+  background: orangered;
+}
+nav input {
+  display: none;
+}
+nav input ~ ul {
+  position: relative;
+  /*visibility: hidden;*/
+  display: none;
+  opacity: 0;
+  top: -20px;
+  z-index: 1;
+}
+nav input:checked + label {
+  background: orangered;
+  color: black;
+}
+
+nav input:checked ~ ul {
+  display: block;
+  opacity: 1;
+  top: 0;
+}
+
+.animate {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  transition: all 0.4s;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;  /* CH + SF */
+  -moz-backface-visibility: hidden;  /* FF */
+  -ms-backface-visibility: hidden;  /* IE */
+}
+
 #main-map {
   height: 400px;
   width: 500px;
   margin: 10px auto;
 }
 .gm-style-iw {
-    color: darkred;
+  color: darkred;
 }
 .eqmap {
   display: none;
@@ -53,14 +109,16 @@ a {
 
 #feel {
   text-align: center;
-  padding: 1vmin;
+  margin-top: 1em;
+  padding: 1em;
   background-color: orangered;
   width: 100%;
 }
 #feel h1 {
-  font-size: 3em;
   color: black;
   font-weight: 700;
+  font-size: 3em;
+  padding: 20px;
 }
 
 #overlay {
@@ -85,15 +143,20 @@ a {
   margin: 100px auto;
 }
 
-.transition, p, ol li i:before, ol li i:after {
+.transition,
+p,
+ol li i:before,
+ol li i:after {
   transition: all 0.25s ease-in-out;
 }
 
-.flipIn, ol li {
+.flipIn,
+ol li {
   animation: flipdown 0.5s ease both;
 }
 
-.no-select, h2 {
+.no-select,
+h2 {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -116,44 +179,54 @@ ol {
   perspective: 900px;
 }
 ol.tilted-list {
-    width: 435px;
-    list-style-type: none;
-    list-style-type: decimal !ie; /*IE 7- hack*/
-    counter-reset: li-counter;
-    font-weight: 400;
+  width: 435px;
+  list-style-type: none;
+  list-style-type: decimal !ie; /*IE 7- hack*/
+  counter-reset: li-counter;
+  font-weight: 400;
 }
 ol.tilted-list h3 {
-    color: black;
-    margin-top: 0;
+  color: black;
+  margin: 0 auto 1em;
 }
 ol.tilted-list > li {
-    position: relative;
-    margin-bottom: 20px;
-    padding: 1em 1em 6px 1em;
-    border-left: 2px solid yellow;
-    background-color: darkgrey;
+  position: relative;
+  margin-bottom: 20px;
+  padding: 1em 1em 6px 1em;
+  border-left: 2px solid yellow;
+  background-color: darkgrey;
 }
 ol.tilted-list > li:before {
-    position: absolute;
-    top: 0;
-    left: -0.95em;
-    width: 1em;
-    font-size: 4em;
-    line-height: 1;
-    font-weight: bold;
-    text-align: right;
-    color: darkorange;
-    transform: rotate(-20deg);
-    -ms-transform: rotate(-20deg);
-    -webkit-transform: rotate(-20deg);
-    z-index: -99;
-    overflow: hidden;
-    content: counter(li-counter);
-    counter-increment: li-counter;
+  position: absolute;
+  top: 0;
+  left: -0.95em;
+  width: 1em;
+  font-size: 4em;
+  line-height: 1;
+  font-weight: bold;
+  text-align: right;
+  color: darkorange;
+  transform: rotate(-20deg);
+  -ms-transform: rotate(-20deg);
+  -webkit-transform: rotate(-20deg);
+  z-index: -99;
+  overflow: hidden;
+  content: counter(li-counter);
+  counter-increment: li-counter;
 }
 .earthquakeMaps {
-    height: 400px;
-    width: 200px;
+  height: 400px;
+  width: 200px;
+}
+
+input[type="checkbox" i] {
+  background-color: initial;
+  cursor: default;
+  -webkit-appearance: checkbox;
+  box-sizing: border-box;
+  margin: 3px 0.5ex;
+  padding: initial;
+  border: initial;
 }
 
 ol li {
@@ -182,7 +255,8 @@ ol li i {
   margin-top: 16px;
   /*right: 15px;*/
 }
-ol li i:before, ol li i:after {
+ol li i:before,
+ol li i:after {
   content: "";
   position: absolute;
   background-color: darkred;
@@ -195,7 +269,7 @@ ol li i:before {
 ol li i:after {
   transform: translate(2px, 0) rotate(-45deg);
 }
-ol li input[type=checkbox] {
+ol li input[type="checkbox"] {
   position: absolute;
   cursor: pointer;
   width: 100%;
@@ -203,31 +277,31 @@ ol li input[type=checkbox] {
   max-height: 320px;
   z-index: 3;
   opacity: 0;
-    transform: translate(-50%, -120px);
+  transform: translate(-50%, -120px);
 }
-ol li input[type=checkbox]:checked ~ p {
-  margin-top: 0;
+ol li input[type="checkbox"]:checked ~ p {
+  margin-top: 20px;
   max-height: 0;
   opacity: 0;
   transform: translate(0, 50%);
 }
-ol li input[type=checkbox]:checked ~ h4 {
+ol li input[type="checkbox"]:checked ~ h4 {
   margin-top: 0;
   max-height: 0;
   opacity: 1;
   transform: translate(0, 50%);
 }
-ol li input[type=checkbox] ~ h4 {
+ol li input[type="checkbox"] ~ h4 {
   margin-top: 0;
   max-height: 0;
   opacity: 0;
   transform: translate(0, 50%);
 }
 
-ol li input[type=checkbox]:checked ~ i:before {
+ol li input[type="checkbox"]:checked ~ i:before {
   transform: translate(2px, 0) rotate(45deg);
 }
-ol li input[type=checkbox]:checked ~ i:after {
+ol li input[type="checkbox"]:checked ~ i:after {
   transform: translate(-2px, 0) rotate(-45deg);
 }
 
