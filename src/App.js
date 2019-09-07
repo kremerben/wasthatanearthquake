@@ -32,7 +32,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.loadData()
+    this.initializeData();
+  }
+
+  initializeData(choice = this.state.timeframeChoice) {
+    this.setState({ is_loading: true });
+
+    this.loadData(choice)
       .then(data => {
         const [user_location, usgsData] = data;
         const [compliedData, could_feel] = addDistanceData(
@@ -51,10 +57,10 @@ class App extends Component {
       });
   }
 
-  async loadData() {
+  async loadData(choice) {
     try {
       const user_location = findCoordinates();
-      const usgsData = retrieveUSGSData(this.state.timeframeChoice);
+      const usgsData = retrieveUSGSData(choice);
       return await Promise.all([user_location, usgsData]);
     } catch (err) {
       console.log("error:: " + err);
@@ -83,6 +89,10 @@ class App extends Component {
     );
   }
 
+  handleTimeframeUpdate(choice) {
+    this.setState({ timeframeChoice: choice }, this.initializeData(choice));
+  }
+
   render() {
     const latitude = this.state.userLocation.latitude.toFixed(4);
     const longitude = this.state.userLocation.longitude.toFixed(4);
@@ -92,7 +102,7 @@ class App extends Component {
         <header className="App-header">
           {/*<Header />*/}
           <h3 className={"shake shake-constant shake-constant--hover"}>
-            Did you feel something?
+            Did you feel something? {this.state.timeframeChoice}
           </h3>
           {/* Feedback box */}
           <Feedback
@@ -101,6 +111,7 @@ class App extends Component {
           />
         </header>
         <Dropdown
+          handleTimeframeUpdate={this.handleTimeframeUpdate.bind(this)}
           initialSelect={this.state.timeframeChoice}
           choices={TIME_FRAME_CHOICES}
           options={{

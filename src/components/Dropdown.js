@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 
-export function Dropdown({ initialSelect, choices, options }) {
+export function Dropdown({
+  handleTimeframeUpdate,
+  initialSelect,
+  choices,
+  options
+}) {
   const [selection, setSelection] = useState(initialSelect);
+  function updates(key) {
+    setSelection(key);
+    handleTimeframeUpdate(key);
+  }
   const dropdownList = Object.keys(choices).map(key => {
     return (
-      <li className="animate" key={key} onClick={() => setSelection(key)}>
+      <li className="animate" key={key} onClick={() => updates(key)}>
         {choices[key]}
       </li>
     );
@@ -16,7 +25,9 @@ export function Dropdown({ initialSelect, choices, options }) {
       <label htmlFor="toggleDropdown" className="animate">
         {options.title}: {selection}
       </label>
-      <ul className="animate" id={options.ulid}>{dropdownList}</ul>
+      <ul className="animate" id={options.ulid}>
+        {dropdownList}
+      </ul>
     </nav>
   );
 }
