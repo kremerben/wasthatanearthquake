@@ -102,7 +102,7 @@ class App extends Component {
         <header className="App-header">
           {/*<Header />*/}
           <h3 className={"shake shake-constant shake-constant--hover"}>
-            Did you feel something? {this.state.timeframeChoice}
+            Did you feel something?
           </h3>
           {/* Feedback box */}
           <Feedback
