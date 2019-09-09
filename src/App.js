@@ -107,7 +107,7 @@ class App extends Component {
           {/* Feedback box */}
           <Feedback
             value={this.state.could_feel}
-            loading={this.state.is_loading}
+            is_loading={this.state.is_loading}
           />
         </header>
         <Dropdown
