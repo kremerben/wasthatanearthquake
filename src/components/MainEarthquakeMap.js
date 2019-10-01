@@ -8,22 +8,18 @@ export class MainEarthquakeMap extends Component {
         super(props);
 
         let markerLocations = props.eqData.map((eq, key) => {
-            return (
-                {
-                    title: eq.properties.title,
-                    url: eq.properties.url,
-                    lat: eq.geometry.coordinates[1],
-                    lng: eq.geometry.coordinates[0]
-                }
-            );
+            return ({
+                title: eq.properties.title,
+                url: eq.properties.url,
+                lat: eq.geometry.coordinates[1],
+                lng: eq.geometry.coordinates[0]
+            });
         });
-        markerLocations.push(            {
-                title: "Your Location",
-                lat: props.userLocation.latitude,
-                lng: props.userLocation.longitude,
-            },
-);
-
+        markerLocations.push({
+            title: "Your Location",
+            lat: props.userLocation.latitude,
+            lng: props.userLocation.longitude,
+        }, );
 
         this.state = {
             userLocation: props.userLocation,
@@ -35,37 +31,37 @@ export class MainEarthquakeMap extends Component {
         };
     }
 
-      onMarkerClick = (props, marker, e) =>
+    onMarkerClick = (props, marker, e) =>
         this.setState({
-          selectedMarker: props,
-          activeMarker: marker,
-          showMarkerInfo: true
+            selectedMarker: props,
+            activeMarker: marker,
+            showMarkerInfo: true
         });
 
-      onClose = (props) => {
+    onClose = (props) => {
         if (this.state.showMarkerInfo) {
-          this.setState({
-            showMarkerInfo: false,
-            activeMarker: null
-          })
+            this.setState({
+                showMarkerInfo: false,
+                activeMarker: null
+            })
         }
-      };
+    };
 
     renderMapMarkers = (props) => {
-        return this.state.markerLocations.map((location, index) => {
-            return (
-
-                <Marker
-                    key={"marker_" + index}
-                    id={index}
-                    position={{
-                        lat: location.lat,
-                        lng: location.lng
-                    }}
-                    title={location.title}
-                    name={<a href={location.url} target="_blank" rel="noopener noreferrer">{location.title}</a>}
-                    onClick={this.onMarkerClick}
-                />
+            return this.state.markerLocations.map((location, index) => {
+                return (
+                    <Marker
+                        key={"marker_" + index}
+                        id={index}
+                        position={{
+                            lat: location.lat,
+                            lng: location.lng
+                        }}
+                        // icon={{url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}}
+                        title={location.title}
+                        name={<a href={location.url} target="_blank" rel="noopener noreferrer">{location.title}</a>}
+                        onClick={this.onMarkerClick}
+                    />
             )
         });
     };
@@ -91,13 +87,11 @@ export class MainEarthquakeMap extends Component {
                 {this.renderMapMarkers()}
 
                 <InfoWindow
-                  marker={this.state.activeMarker}
-                  visible={this.state.showMarkerInfo}
-                  onClose={this.onClose}
+                    marker={this.state.activeMarker}
+                    visible={this.state.showMarkerInfo}
+                    onClose={this.onClose}
                 >
-                  <div>
                     <h3>{this.state.selectedMarker.name}</h3>
-                  </div>
                 </InfoWindow>
 
             </Map>
