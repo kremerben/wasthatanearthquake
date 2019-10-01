@@ -1,47 +1,68 @@
 import React, { Component } from "react";
 
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
 import { GOOGLE_MAPS_API_KEY } from "../config/Constants";
 
-class MainEarthquakeMap extends Component {
+export class MainEarthquakeMap extends Component {
     constructor(props) {
         super(props);
 
-        let markerLocations = [
-            ["Your Location", props.userLocation.latitude, props.userLocation.longitude, "You"]
-        ];
-
-        // eslint-disable-next-line array-callback-return
-        props.eqData.map((eq, key) => {
-            let markerText = `<a href="${eq.properties.url} " target="_blank">${eq.properties.title}</a>`;
-            markerLocations.push([
-                {
-                    text: markerText,
-                    lat: eq.geometry.coordinates[1],
-                    lng: eq.geometry.coordinates[0]
-                }
-            ]);
+        let markerLocations = props.eqData.map((eq, key) => {
+            return ({
+                title: eq.properties.title,
+                url: eq.properties.url,
+                lat: eq.geometry.coordinates[1],
+                lng: eq.geometry.coordinates[0]
+            });
         });
+        markerLocations.push({
+            title: "Your Location",
+            lat: props.userLocation.latitude,
+            lng: props.userLocation.longitude,
+        }, );
+
         this.state = {
             userLocation: props.userLocation,
-            locations: markerLocations,
-            eqData: props.eqData
+            markerLocations: markerLocations,
+            eqData: props.eqData,
+            showMarkerInfo: false,
+            activeMarker: {},
+            selectedMarker: {},
         };
     }
 
-    displayMarkers = () => {
-        return this.state.locations.map((location, index) => {
-            return (
-                <Marker
-                    key={index}
-                    id={index}
-                    position={{
-                        lat: location.lat,
-                        lng: location.lng
-                    }}
-                    label={location.text}
-                />
-            );
+    onMarkerClick = (props, marker, e) =>
+        this.setState({
+            selectedMarker: props,
+            activeMarker: marker,
+            showMarkerInfo: true
+        });
+
+    onClose = (props) => {
+        if (this.state.showMarkerInfo) {
+            this.setState({
+                showMarkerInfo: false,
+                activeMarker: null
+            })
+        }
+    };
+
+    renderMapMarkers = (props) => {
+            return this.state.markerLocations.map((location, index) => {
+                return (
+                    <Marker
+                        key={"marker_" + index}
+                        id={index}
+                        position={{
+                            lat: location.lat,
+                            lng: location.lng
+                        }}
+                        // icon={{url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"}}
+                        title={location.title}
+                        name={<a href={location.url} target="_blank" rel="noopener noreferrer">{location.title}</a>}
+                        onClick={this.onMarkerClick}
+                    />
+            )
         });
     };
 
@@ -61,8 +82,18 @@ class MainEarthquakeMap extends Component {
                     lat: this.state.userLocation.latitude,
                     lng: this.state.userLocation.longitude
                 }}
+                onClick={this.onClose}
             >
-                {this.displayMarkers()}
+                {this.renderMapMarkers()}
+
+                <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showMarkerInfo}
+                    onClose={this.onClose}
+                >
+                    <h3>{this.state.selectedMarker.name}</h3>
+                </InfoWindow>
+
             </Map>
         );
     }
