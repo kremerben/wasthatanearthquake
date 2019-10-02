@@ -1,5 +1,6 @@
 Was that an Earthquake?
 =
+https://earthquake.kremer.dev/
 
 *ReactJs* version of a simple website made a few years ago.
 
@@ -13,16 +14,15 @@ rumbling down the street.
 
 TO DO
 -----
-* Feedback Component
-* ~~Compile list of nearby earthquakes~~
-* ~~List/Display nearby earthquakes~~
-
-
-* add dropdown device to choose from wider timelines:
-    - Just Now
-    - Earlier Today
-    - This past week
-* ~~Rebuild comparison algorithm~~
-* Rebuild Google Maps
-* Intro text
-* Deploy
+- [x] Feedback Component
+- [x] Compile list of nearby earthquakes
+- [x] List/Display nearby earthquakes
+- [x] Deploy https://earthquake.kremer.dev/
+- [x] add dropdown device to choose from wider timelines:
+    - [x] Just Now
+    - [x] Earlier Today
+    - [x] This past week
+- [x] Rebuild comparison algorithm
+- [x] Rebuild Google Maps
+- [ ] Fix Google Maps Markers
+- [ ] Intro text
