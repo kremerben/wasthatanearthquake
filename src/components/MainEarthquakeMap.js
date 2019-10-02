@@ -69,7 +69,6 @@ export class MainEarthquakeMap extends Component {
     render() {
         const mapStyles = {
             height: "400px",
-            width: "500px",
             position: "relative",
         };
 

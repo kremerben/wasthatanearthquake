@@ -96,7 +96,6 @@ nav input:checked ~ ul {
 
 #main-map {
   height: 400px;
-  width: 500px;
   margin: 10px auto;
 }
 .gm-style-iw {
