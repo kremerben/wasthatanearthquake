@@ -327,3 +327,9 @@ ol li input[type="checkbox"]:checked ~ i:after {
     transform: rotateX(0deg);
   }
 }
+
+#footer-credit {
+  color: darkorange;
+  text-decoration: none;
+  padding: 1em;
+}
