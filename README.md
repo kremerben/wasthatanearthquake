@@ -24,5 +24,5 @@ TO DO
     - [x] This past week
 - [x] Rebuild comparison algorithm
 - [x] Rebuild Google Maps
-- [ ] Fix Google Maps Markers
+- [x] Fix Google Maps Markers
 - [ ] Intro text
