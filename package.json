@@ -4,7 +4,7 @@
   "homepage": "https://earthquake.kremer.dev",
   "private": true,
   "dependencies": {
-    "axios": "^0.19.1",
+    "axios": ">=0.21.1",
     "csshake": "^1.5.3",
     "google-maps-react": "^2.0.2",
     "react": "^16.12.0",
